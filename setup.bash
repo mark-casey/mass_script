@@ -69,6 +69,10 @@ maas "${MAAS_ADMIN_USER}" boot-source-selections create 1 os="ubuntu" release="t
 maas "${MAAS_ADMIN_USER}" boot-source-selections create 1 os="ubuntu" release="wily" arches="amd64" subarches="*" labels="*" || true
 maas "${MAAS_ADMIN_USER}" boot-source-selections create 1 os="ubuntu" release="xenial" arches="amd64" subarches="*" labels="*" || true
 
+# apply image changes and/or start download of images not added from disk
+# this happens now and at the end because the first run enumerates architecture types the custom image imports need
+sleep 4
+maas "${MAAS_ADMIN_USER}" boot-resources import
 
 if [[ "${MAAS_ADD_CENTOS:-}" == "yes" ]]
 then
@@ -127,9 +131,10 @@ then
     cd "${coreos_dl_dir}"
     wget -nv http://stable.release.core-os.net/amd64-usr/current/coreos_production_image.bin.bz2
     bunzip2 coreos_production_image.bin.bz2
+    tar -czvf coreos_production_image.bin.tgz coreos_production_image.bin
     sleep 4
-    maas "${MAAS_ADMIN_USER}" boot-resources create name=custom/coreos_stable_"${COREOS_BUILD}"_"${COREOS_BRANCH}"_"${COREOS_PATCH}" architecture=amd64/generic content@=coreos_production_image.bin
-    rm coreos_production_image.bin
+    maas "${MAAS_ADMIN_USER}" boot-resources create name=custom/coreos_stable_"${COREOS_BUILD}"_"${COREOS_BRANCH}"_"${COREOS_PATCH}" architecture=amd64/generic content@=coreos_production_image.bin.tgz
+    rm coreos_production_image.bin.tgz coreos_production_image.bin
 fi
 
 
