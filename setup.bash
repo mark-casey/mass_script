@@ -70,7 +70,7 @@ maas "${MAAS_ADMIN_USER}" boot-source-selections create 1 os="ubuntu" release="w
 maas "${MAAS_ADMIN_USER}" boot-source-selections create 1 os="ubuntu" release="xenial" arches="amd64" subarches="*" labels="*" || true
 
 
-if [[ "${MAAS_ADD_CENTOS}" == "yes" ]]
+if [[ "${MAAS_ADD_CENTOS:-}" == "yes" ]]
 then
     ### CentOS images in MAAS
     # April 15, 2016:
@@ -118,7 +118,7 @@ then
     #maas "${MAAS_ADMIN_USER}" boot-resources create name=centos/centos7 architecture=amd64/generic content@=./build-output/centos7-amd64-root-tgz
 fi
 
-if [[ "${MAAS_ADD_COREOS}" == "yes" ]]
+if [[ "${MAAS_ADD_COREOS:-}" == "yes" ]]
 then
     source <(wget -O- http://stable.release.core-os.net/amd64-usr/current/version.txt)
     # this dir will get emptied but left around - need to improve safety of rm on next line
