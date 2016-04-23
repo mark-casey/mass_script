@@ -39,9 +39,9 @@ apt-get -qy install maas
 
 
 # assign defaults if not set
-if [[ -n "${MAAS_ADMIN_USER:-}" ]]; then MAAS_ADMIN_USER="admin"; fi
-if [[ -n "${MAAS_ADMIN_EMAIL:-}" ]]; then MAAS_ADMIN_USER="admin@email.com"; fi
-if [[ -n "${MAAS_ADMIN_PASS:-}" ]]; then MAAS_ADMIN_USER="admin"; fi
+if [[ -z "${MAAS_ADMIN_USER:-}" ]]; then MAAS_ADMIN_USER="admin"; fi
+if [[ -z "${MAAS_ADMIN_EMAIL:-}" ]]; then MAAS_ADMIN_EMAIL="admin@email.com"; fi
+if [[ -z "${MAAS_ADMIN_PASS:-}" ]]; then MAAS_ADMIN_PASS="admin"; fi
 
 
 #
