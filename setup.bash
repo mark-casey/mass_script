@@ -29,7 +29,7 @@ then
         | debconf-set-selections
         echo "maas-region-controller-min maas/default-maas-url string ${MAASVM_MGMTNET_IP}" | debconf-set-selections
     else
-        echo "Error: "MAASVM_MGMTNET_IP is set to ${MAASVM_MGMTNET_IP} but this host does not appear to have an interface holding that IP."
+        echo "Error: MAASVM_MGMTNET_IP is set to ${MAASVM_MGMTNET_IP} but this host does not appear to have an interface holding that IP."
     fi
 fi
 
@@ -50,7 +50,7 @@ if [[ -n "${MAAS_ADMIN_PASS:-}" ]]; then MAAS_ADMIN_USER="admin"; fi
 
 # create admin user
 sleep 4
-maas-region-admin createadmin --username=${MAAS_ADMIN_USER} --email=${MAAS_ADMIN_EMAIL} --password=${MAAS_ADMIN_PASS}
+maas-region-admin createadmin --username="${MAAS_ADMIN_USER}" --email="${MAAS_ADMIN_EMAIL}" --password="${MAAS_ADMIN_PASS}"
 
 # store admin user's api key/token
 sleep 4
