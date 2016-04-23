@@ -130,10 +130,10 @@ then
     #trap "rm ${coreos_dl_dir} -rf" EXIT
     cd "${coreos_dl_dir}"
     wget -nv http://stable.release.core-os.net/amd64-usr/current/coreos_production_image.bin.bz2
-    bunzip2 coreos_production_image.bin.bz2
-    tar -czvf coreos_production_image.bin.tgz coreos_production_image.bin
+    bunzip2 -c < coreos_production_image.bin.bz2 | gzip -c > coreos_production_image.bin.tgz
     sleep 4
     maas "${MAAS_ADMIN_USER}" boot-resources create name=custom/coreos_stable_"${COREOS_BUILD}"_"${COREOS_BRANCH}"_"${COREOS_PATCH}" architecture=amd64/generic content@=coreos_production_image.bin.tgz
+    ls -la
     rm coreos_production_image.bin.tgz coreos_production_image.bin
 fi
 
