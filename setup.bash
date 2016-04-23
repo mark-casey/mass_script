@@ -33,6 +33,7 @@ then
     fi
 else
     echo "Error: MAASVM_MGMTNET_IP must be set."
+    exit 1
 fi
 
 
