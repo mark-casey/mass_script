@@ -117,7 +117,7 @@ fi
 
 if [[ "${MAAS_ADD_COREOS}" == "yes" ]]
 then
-    source <(wget -o- http://stable.release.core-os.net/amd64-usr/current/version.txt)
+    source <(wget -O- http://stable.release.core-os.net/amd64-usr/current/version.txt)
     # this dir will get emptied but left around - need to improve safety of rm on next line
     coreos_dl_dir="$(mktemp -d)"
     #trap "rm ${coreos_dl_dir} -rf" EXIT
