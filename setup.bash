@@ -31,6 +31,8 @@ then
     else
         echo "Error: MAASVM_MGMTNET_IP is set to ${MAASVM_MGMTNET_IP} but this host does not appear to have an interface holding that IP."
     fi
+else
+    echo "Error: MAASVM_MGMTNET_IP must be set."
 fi
 
 
@@ -42,7 +44,7 @@ apt-get -qy install maas
 if [[ -z "${MAAS_ADMIN_USER:-}" ]]; then MAAS_ADMIN_USER="admin"; fi
 if [[ -z "${MAAS_ADMIN_EMAIL:-}" ]]; then MAAS_ADMIN_EMAIL="admin@email.com"; fi
 if [[ -z "${MAAS_ADMIN_PASS:-}" ]]; then MAAS_ADMIN_PASS="admin"; fi
-
+MAASVM_API_URL="http://${MAASVM_MGMTNET_IP}:5240/MAAS/api/1.0"
 
 #
 # calls to sleep from here on are to keep from overwhelming MAAS on slow hardware
