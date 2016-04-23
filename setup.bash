@@ -133,8 +133,7 @@ then
     bunzip2 -c < coreos_production_image.bin.bz2 | gzip -c > coreos_production_image.bin.tgz
     sleep 4
     maas "${MAAS_ADMIN_USER}" boot-resources create name=custom/coreos_stable_"${COREOS_BUILD}"_"${COREOS_BRANCH}"_"${COREOS_PATCH}" architecture=amd64/generic content@=coreos_production_image.bin.tgz
-    ls -la
-    rm coreos_production_image.bin.tgz coreos_production_image.bin
+    rm coreos_production_image.bin.tgz coreos_production_image.bin.bz2
 fi
 
 
