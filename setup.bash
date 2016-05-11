@@ -7,6 +7,10 @@ set -u
 set -o pipefail
 
 
+# get new pip
+#apt-get -qy purge python-pip
+#curl https://bootstrap.pypa.io/get-pip.py | python
+
 # add software-properties-common if not present
 apt-get -qy update
 apt-get -qy install software-properties-common
