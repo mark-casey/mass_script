@@ -134,6 +134,7 @@ then
     cd "${coreos_dl_dir}"
     wget -nv http://stable.release.core-os.net/amd64-usr/current/coreos_production_image.bin.bz2
     bunzip2 -c < coreos_production_image.bin.bz2 | gzip -c > coreos_production_image.bin.tgz
+    chmod -R 777 "${coreos_dl_dir}"
     sleep 4
     maas "${MAAS_ADMIN_USER}" boot-resources create name=custom/coreos_stable_"${COREOS_BUILD}"_"${COREOS_BRANCH}"_"${COREOS_PATCH}" architecture=amd64/generic content@=coreos_production_image.bin.tgz
     #rm coreos_production_image.bin.tgz coreos_production_image.bin.bz2
