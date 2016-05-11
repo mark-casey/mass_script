@@ -8,18 +8,14 @@ set -o pipefail
 
 
 # add software-properties-common if not present
-apt-get -qy update
-echo "A"
-apt-get -qy install software-properties-common
-echo "B"
+apt-get -qy update && apt-get -qy install software-properties-common
 
 # Use newest packages, available in official PPA
 add-apt-repository -y ppa:maas/stable
-echo "C"
+
 
 #
 apt-get -qy update
-echo "D"
 
 # FIXME this makes it sound optional but it isn't cause DHCP needs to be configured with it
 # If this host has more than once network interface the wrong IP/interface
