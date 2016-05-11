@@ -53,7 +53,7 @@ apt-get -qy install maas
 if [[ -z "${MAAS_ADMIN_USER:-}" ]]; then MAAS_ADMIN_USER="admin"; fi
 if [[ -z "${MAAS_ADMIN_EMAIL:-}" ]]; then MAAS_ADMIN_EMAIL="admin@email.com"; fi
 if [[ -z "${MAAS_ADMIN_PASS:-}" ]]; then MAAS_ADMIN_PASS="admin"; fi
-MAASVM_API_URL="http://${MAASVM_MGMTNET_IP}:5240/MAAS/api/1.0"
+MAASVM_API_URL="http://${MAASVM_MGMTNET_IP}:5240/MAAS/api/2.0"
 
 #
 # calls to sleep from here on are to keep from overwhelming MAAS on slow hardware
