@@ -8,7 +8,9 @@ set -o pipefail
 
 
 # add software-properties-common if not present
-apt-get -qy update && apt-get -qy install software-properties-common
+apt-get -qy update
+apt-get -qy install software-properties-common
+
 
 # Use newest packages, available in official PPA
 add-apt-repository -y ppa:maas/stable
