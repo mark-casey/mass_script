@@ -61,11 +61,11 @@ MAASVM_API_URL="http://${MAASVM_MGMTNET_IP}:5240/MAAS/api/1.0"
 
 # create admin user
 sleep 4
-maas-region-admin createadmin --username="${MAAS_ADMIN_USER}" --email="${MAAS_ADMIN_EMAIL}" --password="${MAAS_ADMIN_PASS}"
+maas-region createadmin --username="${MAAS_ADMIN_USER}" --email="${MAAS_ADMIN_EMAIL}" --password="${MAAS_ADMIN_PASS}"
 
 # store admin user's api key/token
 sleep 4
-MAAS_ADMIN_APIKEY="$(maas-region-admin apikey --username ${MAAS_ADMIN_USER})"
+MAAS_ADMIN_APIKEY="$(maas-region apikey --username ${MAAS_ADMIN_USER})"
 
 # log in to included api cli wrapper
 sleep 4
