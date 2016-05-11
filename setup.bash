@@ -13,7 +13,7 @@ apt-get -qy install software-properties-common
 
 
 # Use newest packages, available in official PPA
-add-apt-repository -y ppa:maas/stable
+add-apt-repository -y ppa:maas/next
 
 
 #
