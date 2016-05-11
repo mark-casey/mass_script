@@ -136,14 +136,15 @@ then
     bunzip2 -c < coreos_production_image.bin.bz2 | gzip -c > coreos_production_image.bin.tgz
     sleep 4
     maas "${MAAS_ADMIN_USER}" boot-resources create name=custom/coreos_stable_"${COREOS_BUILD}"_"${COREOS_BRANCH}"_"${COREOS_PATCH}" architecture=amd64/generic content@=coreos_production_image.bin.tgz
-    rm coreos_production_image.bin.tgz coreos_production_image.bin.bz2
+    #rm coreos_production_image.bin.tgz coreos_production_image.bin.bz2
 fi
 
 
 # apply image changes and/or start download of images not added from disk
 sleep 4
+pwd
 maas "${MAAS_ADMIN_USER}" boot-resources import
-
+pwd
 
 #sleep 4
 #set maas dhcp settings on mgmt interface; done in Readme for now using MAAS GUI
