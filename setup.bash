@@ -23,12 +23,7 @@ add-apt-repository -y ppa:maas/next
 #
 apt-get -qy update
 
-# FIXME this makes it sound optional but it isn't cause DHCP needs to be configured with it
-# If this host has more than once network interface the wrong IP/interface
-# may be used for things like the host portion of the URL that target nodes
-# use to download cloud-init configs post-install. So we'll use the value of
-# MAASVM_MGMTNET_IP if it is set and its value is one of this host's IPs.
-#
+# specify default url for things like web interface and url that target nodes query for cloud-init configs
 if  [[ -n "${MAASVM_MGMTNET_IP:-}" ]]
 then
     if [[ $( grep -c "${MAASVM_MGMTNET_IP}" <(ip a) || true ) > 0 ]]
