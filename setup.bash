@@ -17,7 +17,7 @@ apt-get -qy install software-properties-common
 
 
 # Use newest packages, available in official PPA
-add-apt-repository -y ppa:maas/next
+add-apt-repository -y ppa:maas/stable
 
 
 #
@@ -48,7 +48,7 @@ apt-get -qy install maas
 if [[ -z "${MAAS_ADMIN_USER:-}" ]]; then MAAS_ADMIN_USER="admin"; fi
 if [[ -z "${MAAS_ADMIN_EMAIL:-}" ]]; then MAAS_ADMIN_EMAIL="admin@email.com"; fi
 if [[ -z "${MAAS_ADMIN_PASS:-}" ]]; then MAAS_ADMIN_PASS="admin"; fi
-MAASVM_API_URL="http://${MAASVM_MGMTNET_IP}:5240/MAAS/api/2.0"
+MAASVM_API_URL="http://${MAASVM_MGMTNET_IP}:5240/MAAS/api/1.0"
 
 #
 # calls to sleep from here on are to keep from overwhelming MAAS on slow hardware
@@ -56,11 +56,11 @@ MAASVM_API_URL="http://${MAASVM_MGMTNET_IP}:5240/MAAS/api/2.0"
 
 # create admin user
 sleep 4
-maas-region createadmin --username="${MAAS_ADMIN_USER}" --email="${MAAS_ADMIN_EMAIL}" --password="${MAAS_ADMIN_PASS}"
+maas-region-admin createadmin --username="${MAAS_ADMIN_USER}" --email="${MAAS_ADMIN_EMAIL}" --password="${MAAS_ADMIN_PASS}"
 
 # store admin user's api key/token
 sleep 4
-MAAS_ADMIN_APIKEY="$(maas-region apikey --username ${MAAS_ADMIN_USER})"
+MAAS_ADMIN_APIKEY="$(maas-region-admin apikey --username ${MAAS_ADMIN_USER})"
 
 # log in to included api cli wrapper
 sleep 4
