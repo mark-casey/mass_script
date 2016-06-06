@@ -55,26 +55,26 @@ MAASVM_API_URL="http://${MAASVM_MGMTNET_IP}:5240/MAAS/api/1.0"
 #
 
 # create admin user
-sleep 4
+sleep 3
 maas-region-admin createadmin --username="${MAAS_ADMIN_USER}" --email="${MAAS_ADMIN_EMAIL}" --password="${MAAS_ADMIN_PASS}"
 
 # store admin user's api key/token
-sleep 4
+sleep 3
 MAAS_ADMIN_APIKEY="$(maas-region-admin apikey --username ${MAAS_ADMIN_USER})"
 
 # log in to included api cli wrapper
-sleep 4
+sleep 3
 maas login "${MAAS_ADMIN_USER}" "${MAASVM_API_URL}" "${MAAS_ADMIN_APIKEY}"
 
 # add Ubuntu Trusty, Wily, and Xenial if not added already
-sleep 4
+sleep 3
 maas "${MAAS_ADMIN_USER}" boot-source-selections create 1 os="ubuntu" release="trusty" arches="amd64" subarches="*" labels="*" || true
 maas "${MAAS_ADMIN_USER}" boot-source-selections create 1 os="ubuntu" release="wily" arches="amd64" subarches="*" labels="*" || true
 maas "${MAAS_ADMIN_USER}" boot-source-selections create 1 os="ubuntu" release="xenial" arches="amd64" subarches="*" labels="*" || true
 
 # apply image changes and/or start download of images not added from disk
 # this happens now and at the end because the first run enumerates architecture types the custom image imports need
-sleep 4
+sleep 3
 maas "${MAAS_ADMIN_USER}" boot-resources import
 
 if [[ "${MAAS_ADD_CENTOS:-}" == "yes" ]]
@@ -121,7 +121,7 @@ then
     #maas-image-builder -a amd64 -o centos7-amd64-root-tgz centos --edition 7
 
     # add CentOS image
-    sleep 4
+    sleep 3
     #maas "${MAAS_ADMIN_USER}" boot-resources create name=centos/centos7 architecture=amd64/generic content@=./build-output/centos7-amd64-root-tgz
 fi
 
@@ -135,23 +135,21 @@ then
     wget -nv http://stable.release.core-os.net/amd64-usr/current/coreos_production_image.bin.bz2
     bunzip2 -c < coreos_production_image.bin.bz2 | gzip -c > coreos_production_image.bin.tgz
     chmod -R 777 "${coreos_dl_dir}"
-    sleep 4
+    sleep 3
     maas "${MAAS_ADMIN_USER}" boot-resources create name=custom/coreos_stable_"${COREOS_BUILD}"_"${COREOS_BRANCH}"_"${COREOS_PATCH}" architecture=amd64/generic content@=coreos_production_image.bin.tgz
     #rm coreos_production_image.bin.tgz coreos_production_image.bin.bz2
 fi
 
 
 # apply image changes and/or start download of images not added from disk
-sleep 4
-pwd
+sleep 3
 maas "${MAAS_ADMIN_USER}" boot-resources import
-pwd
 
-#sleep 4
+#sleep 3
 #set maas dhcp settings on mgmt interface; done in Readme for now using MAAS GUI
 
 
 # done. log out of api cli wrapper
-sleep 4
+sleep 3
 maas logout "${MAAS_ADMIN_USER}"
 
